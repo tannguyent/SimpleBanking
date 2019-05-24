@@ -21,6 +21,9 @@ using IdentityAPI.Data;
 using Microsoft.Extensions.Logging.Abstractions;
 using RSK.Audit.EF;
 using RSK.IdentityServer4.AuditEventSink;
+using IdentityServer4.EntityFramework.DbContexts;
+using System.Linq;
+using IdentityServer4.EntityFramework.Mappers;
 
 namespace IdentityAPI
 {
@@ -106,8 +109,8 @@ namespace IdentityAPI
                     // register your IdentityServer with Google at https://console.developers.google.com
                     // enable the Google+ API
                     // set the redirect URI to http://localhost:5000/signin-google
-                    options.ClientId = "copy client ID from Google here";
-                    options.ClientSecret = "copy client secret from Google here";
+                    options.ClientId = "13721564065-cob2gqp4mlvm2eov65co228lc1suhbv6.apps.googleusercontent.com";
+                    options.ClientSecret = "BbYbWhfHOasd6SIQWpkYwsap";
                 });
 
             services.UseAdminUI();
@@ -134,6 +137,8 @@ namespace IdentityAPI
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
             app.UseAdminUI();
+
+            InitializeDatabase(app);
         }
         
         public void ConfigureIdentityServerAuditing(IServiceCollection services, string auditConnectionString)
@@ -150,6 +155,34 @@ namespace IdentityAPI
                     new AuditSink(auditRecorder)
                 }
             });
+        }
+
+
+        private void InitializeDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                //serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
+
+                var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
+                //context.Database.Migrate();
+                if (!context.Clients.Any(c=>c.ClientId == "client"))
+                {
+                    foreach (var client in Config.GetClients())
+                    {
+                        context.Clients.Add(client.ToEntity());
+                    }
+                    foreach (var resource in Config.GetIdentityResources())
+                    {
+                        context.IdentityResources.Add(resource.ToEntity());
+                    }
+                    foreach (var resource in Config.GetApis())
+                    {
+                        context.ApiResources.Add(resource.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+            }
         }
     }
 }
