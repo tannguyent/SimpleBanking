@@ -1,1 +1,1 @@
-# SimpleBanking
+# SimpleBanking - Identity Service
