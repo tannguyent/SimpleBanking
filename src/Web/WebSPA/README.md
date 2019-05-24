@@ -1,1 +1,1 @@
-# SimpleBanking
+# SimpleBanking - WebSPA (VueJs)
