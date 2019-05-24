@@ -1,1 +1,1 @@
-# SimpleBanking
+# SimpleBanking - Banking Service
