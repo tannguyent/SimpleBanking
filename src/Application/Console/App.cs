@@ -68,6 +68,8 @@ namespace SimpleBankingApp
                             case ActionEnum.ListTransactions:
                                 await _commandDelegator.SendAsync(new ListTransactionHistoryCommand());
                                 break;
+                            case ActionEnum.Close:
+                                return;
                             default:
                                 break;
                         }
@@ -76,7 +78,6 @@ namespace SimpleBankingApp
                 catch (Exception ex)
                 {
                     _logger.LogCritical(ex.Message);
-
 
                     Console.ReadKey();
                 }

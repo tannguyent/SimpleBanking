@@ -40,6 +40,8 @@ namespace SimpleBankingApp.Account.Handlers
             await _accountService.LogoutAsync(command, cancellationToken);
 
             _logger.LogInformation("LOGOUT SUCCESS");
+            _applicationContext.UserInfo.AccessToken = string.Empty;
+            _applicationContext.UserInfo.RefreshToken = string.Empty;
         }
     }
 }

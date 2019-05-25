@@ -32,7 +32,7 @@ namespace SimpleBankingApp.Account.Services
         {
             var content = new StringContent(JsonConvert.SerializeObject(command), Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync("/Users", content, token);
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            if (response.StatusCode != System.Net.HttpStatusCode.OK && response.StatusCode != System.Net.HttpStatusCode.Created)
                 throw new AccountCreateNewException(await response.Content.ReadAsStringAsync());
 
         }

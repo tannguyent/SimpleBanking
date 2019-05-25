@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SimpleBankingApp.Bank.Commands
+namespace SimpleBankingApp.Banking.Commands
 {
-    public class CheckBalanceCommand
+    public class RecordDepositCommand
     {
     }
 }

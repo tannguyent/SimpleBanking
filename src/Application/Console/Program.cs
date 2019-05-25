@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SimpleBankingApp.Account.Services;
+using SimpleBankingApp.Bank.Services;
 using SimpleBankingApp.Models;
 using SimpleBankingApp.Print.Handlers;
 
@@ -52,6 +53,7 @@ namespace SimpleBankingApp
 
             // add service 
             serviceCollection.AddHttpClient<IAccountService, AccountService>();
+            serviceCollection.AddHttpClient<IBankingService, BankingService>();
         }
 
         private static void ConfigureConsole(IConfigurationRoot configuration)

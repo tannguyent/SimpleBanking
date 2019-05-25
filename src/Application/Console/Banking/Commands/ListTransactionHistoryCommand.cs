@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SimpleBankingApp.Bank.Commands
+namespace SimpleBankingApp.Banking.Commands
 {
     public class ListTransactionHistoryCommand
     {

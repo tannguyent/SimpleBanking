@@ -25,11 +25,13 @@ namespace SimpleBankingApp.Print.Handlers
                 Console.WriteLine("5. Check Balance");
                 Console.WriteLine("6. List Transactions");
                 Console.WriteLine("7. Logout");
+                Console.WriteLine("8. Close");
             }
             else
             {
                 Console.WriteLine("1. Create Account");
                 Console.WriteLine("2. Login");
+                Console.WriteLine("8. Close");
             }
             
         }
