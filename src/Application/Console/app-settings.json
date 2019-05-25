@@ -1,5 +1,10 @@
 {
   "Configuration": {
     "ConsoleTitle": "Simple Banking Console Application"
+  },
+  "Identity": {
+    "IdentityServer": "http://localhost:5000",
+    "ClientId": "bankingapiclient",
+    "Scope": "bankingapi"
   }
 }

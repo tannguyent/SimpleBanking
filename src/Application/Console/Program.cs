@@ -44,7 +44,7 @@ namespace SimpleBankingApp
                 .Build();
 
             serviceCollection.AddOptions();
-            serviceCollection.Configure<ApplicationSettings>(configuration.GetSection("Configuration"));
+            serviceCollection.Configure<ApplicationSettings>(configuration);
             ConfigureConsole(configuration);
 
             // add context
