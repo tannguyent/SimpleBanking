@@ -42,8 +42,6 @@ namespace SimpleBankingApp.Account.Handlers
             _logger.LogInformation("LOGIN SUCCESS");
             _applicationContext.UserInfo.AccessToken = response.AccessToken;
             _applicationContext.UserInfo.RefreshToken = response.RefreshToken;
-
-            await _eventDelegator.SendAsync(new ShowHomeScreenEvent());
         }
     }
 }

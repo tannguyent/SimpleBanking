@@ -35,40 +35,50 @@ namespace SimpleBankingApp
 
         public async Task Run()
         {
-            await _eventDelegator.SendAsync(new ShowHomeScreenEvent());
             do
             {
-                var keyCode  = Console.ReadKey();
-                if (int.TryParse(keyCode.KeyChar.ToString(), out int actionNumber))
+                try
                 {
-                    var action = (ActionEnum)Convert.ToInt16(actionNumber);
-                    switch (action)
+                    await _eventDelegator.SendAsync(new ShowHomeScreenEvent());
+                    var keyCode = Console.ReadKey();
+                    if (int.TryParse(keyCode.KeyChar.ToString(), out int actionNumber))
                     {
-                        case ActionEnum.CreateAccount:
-                            await _eventDelegator.SendAsync(new ShowCreateAccountScreenEvent());
-                            break;
-                        case ActionEnum.Login:
-                            await _eventDelegator.SendAsync(new ShowLoginScreenEvent());
-                            break;
-                        case ActionEnum.Logout:
-                            var ApplicationContext = _serviceProvider.GetService(typeof(ApplicationContext)) as ApplicationContext;
-                            await _commandDelegator.SendAsync(new LogoutCommand(ApplicationContext.UserInfo.AccessToken));
-                            break;
-                        case ActionEnum.CreateDeposit:
-                            await _eventDelegator.SendAsync(new ShowRecordDepositScreenEvent());
-                            break;
-                        case ActionEnum.CreateWithDraw:
-                            await _eventDelegator.SendAsync(new ShowRecordWithDrawScreenEvent());
-                            break;
-                        case ActionEnum.CheckBalance:
-                            await _commandDelegator.SendAsync(new CheckBalanceCommand());
-                            break;
-                        case ActionEnum.ListTransactions:
-                            await _commandDelegator.SendAsync(new ListTransactionHistoryCommand());
-                            break;
-                        default:
-                            break;
+                        var action = (ActionEnum)Convert.ToInt16(actionNumber);
+                        switch (action)
+                        {
+                            case ActionEnum.CreateAccount:
+                                await _eventDelegator.SendAsync(new ShowCreateAccountScreenEvent());
+                                break;
+                            case ActionEnum.Login:
+                                await _eventDelegator.SendAsync(new ShowLoginScreenEvent());
+                                break;
+                            case ActionEnum.Logout:
+                                var ApplicationContext = _serviceProvider.GetService(typeof(ApplicationContext)) as ApplicationContext;
+                                await _commandDelegator.SendAsync(new LogoutCommand(ApplicationContext.UserInfo.AccessToken));
+                                break;
+                            case ActionEnum.CreateDeposit:
+                                await _eventDelegator.SendAsync(new ShowRecordDepositScreenEvent());
+                                break;
+                            case ActionEnum.CreateWithDraw:
+                                await _eventDelegator.SendAsync(new ShowRecordWithDrawScreenEvent());
+                                break;
+                            case ActionEnum.CheckBalance:
+                                await _commandDelegator.SendAsync(new CheckBalanceCommand());
+                                break;
+                            case ActionEnum.ListTransactions:
+                                await _commandDelegator.SendAsync(new ListTransactionHistoryCommand());
+                                break;
+                            default:
+                                break;
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogCritical(ex.Message);
+
+
+                    Console.ReadKey();
                 }
             }
             while (true);

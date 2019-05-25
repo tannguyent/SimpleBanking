@@ -10,6 +10,13 @@ namespace SimpleBankingApp.Print.Handlers
 {
     public class ShowLoginScreenEventHandler : IEventAsyncHandler<ShowLoginScreenEvent>
     {
+        private readonly CommandDelegator _commandDelegator;
+
+        public ShowLoginScreenEventHandler(CommandDelegator commandDelegator)
+        {
+            _commandDelegator = commandDelegator;
+        }
+
         public Task HandleAsync(ShowLoginScreenEvent @event, CancellationToken cancellationToken = default(CancellationToken))
         {
             Console.Clear();
@@ -20,8 +27,7 @@ namespace SimpleBankingApp.Print.Handlers
             Console.WriteLine("2. Input password");
             var password = Console.ReadLine();
 
-            return Task.CompletedTask;
-
+            return _commandDelegator.SendAsync(new LoginCommand(userName, password), cancellationToken);
         }
     }
 }

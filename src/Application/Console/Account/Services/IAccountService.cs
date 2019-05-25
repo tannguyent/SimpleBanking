@@ -7,10 +7,10 @@ namespace SimpleBankingApp.Account.Services
 {
     public interface IAccountService
     {
-        Task<bool> CreateAccountAsync(CreateAccountCommand command, CancellationToken token = default(CancellationToken));
+        Task CreateAccountAsync(CreateAccountCommand command, CancellationToken token = default(CancellationToken));
 
         Task<TokenResponse> LoginAsync(LoginCommand command, CancellationToken token = default(CancellationToken));
 
-        Task<bool> LogoutAsync(LogoutCommand command, CancellationToken token = default(CancellationToken));
+        Task LogoutAsync(LogoutCommand command, CancellationToken token = default(CancellationToken));
     }
 }

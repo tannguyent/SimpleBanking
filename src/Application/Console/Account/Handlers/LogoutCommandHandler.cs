@@ -37,11 +37,9 @@ namespace SimpleBankingApp.Account.Handlers
         public async Task HandleAsync(LogoutCommand command, CancellationToken cancellationToken = default(CancellationToken))
         {
             _logger.LogInformation("START LOGOUT ACCOUNT ....");
-            var response = await _accountService.LogoutAsync(command, cancellationToken);
+            await _accountService.LogoutAsync(command, cancellationToken);
 
             _logger.LogInformation("LOGOUT SUCCESS");
-
-            await _eventDelegator.SendAsync(new ShowHomeScreenEvent());
         }
     }
 }

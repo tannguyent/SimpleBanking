@@ -28,18 +28,19 @@ namespace SimpleBankingApp.Account.Services
             _httpClient.BaseAddress = new Uri(_applicationSettings.Identity.IdentityServer);
         }
 
-        public async Task<bool> CreateAccountAsync(CreateAccountCommand command, CancellationToken token = default(CancellationToken))
+        public async Task CreateAccountAsync(CreateAccountCommand command, CancellationToken token = default(CancellationToken))
         {
             var content = new StringContent(JsonConvert.SerializeObject(command), Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync("/Users", content, token);
-            response.EnsureSuccessStatusCode();
-            return response.StatusCode == System.Net.HttpStatusCode.OK;
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                throw new Exception(await response.Content.ReadAsStringAsync());
+
         }
 
         public async Task<TokenResponse> LoginAsync(LoginCommand command, CancellationToken token = default(CancellationToken))
         {
             var disco = await GetDiscoveryIdentityServerAsync(token);
-            return await _httpClient.RequestPasswordTokenAsync(new PasswordTokenRequest
+            var response = await _httpClient.RequestPasswordTokenAsync(new PasswordTokenRequest
             {
                 Address = disco.TokenEndpoint,
                 ClientId = _applicationSettings.Identity.ClientId,
@@ -47,14 +48,21 @@ namespace SimpleBankingApp.Account.Services
                 Password = command.Password,
                 Scope = _applicationSettings.Identity.Scope
             }, token);
+
+            if (response.IsError)
+            {
+                throw new Exception(response.ErrorDescription);
+            }
+
+            return response;
         }
 
-        public async Task<bool> LogoutAsync(LogoutCommand command, CancellationToken token = default(CancellationToken))
+        public async Task LogoutAsync(LogoutCommand command, CancellationToken token = default(CancellationToken))
         {
             var disco = await GetDiscoveryIdentityServerAsync(token);
             var logoutResponse = await _httpClient.GetAsync($"{disco.EndSessionEndpoint}?id_token_hint={command.AccessToken}", token);
-            logoutResponse.EnsureSuccessStatusCode();
-            return logoutResponse.StatusCode == System.Net.HttpStatusCode.OK;
+            if (logoutResponse.StatusCode != System.Net.HttpStatusCode.OK)
+                throw new Exception(await logoutResponse.Content.ReadAsStringAsync());
         }
 
         /// <summary>

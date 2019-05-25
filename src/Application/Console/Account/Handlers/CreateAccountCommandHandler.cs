@@ -34,12 +34,11 @@ namespace SimpleBankingApp.Account.Handlers
         public async Task HandleAsync(CreateAccountCommand command, CancellationToken cancellationToken = default(CancellationToken))
         {
             _logger.LogInformation("START CREATE ACCOUNT ....");
-            var response = await _accountService.CreateAccountAsync(command, cancellationToken);
+            await _accountService.CreateAccountAsync(command, cancellationToken);
 
             _logger.LogInformation("START CREATE BANKING ....");
 
             _logger.LogInformation("START CREATE BANKING SUCCESS");
-            await _eventDelegator.SendAsync(new ShowHomeScreenEvent());
         }
     }
 }
