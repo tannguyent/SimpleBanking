@@ -27,6 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Bank\" />
+    <Folder Include="Account\Handlers\" />
   </ItemGroup>
 </Project>

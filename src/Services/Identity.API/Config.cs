@@ -23,6 +23,12 @@ namespace IdentityAPI
             return new ApiResource[]
             {
                 new ApiResource("bankingapi", "Banking API")
+                {
+                    ApiSecrets = new List<Secret>
+                    {
+                        new Secret("fU7fRb+g6YdlniuSqviOLWNkda1M/MuPtH6zNI9inF8=")
+                    }
+                }
             };
         }
 
@@ -33,11 +39,24 @@ namespace IdentityAPI
                 // client credentials flow client
                 new Client
                 {
-                    ClientId = "client",
-                    ClientName = "Client Credentials Client",
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
-                    AllowedScopes = { "bankingapi" }
+                    ClientId = "bankingapiclient",
+                    ClientName = "banking api client",
+                    ClientSecrets = {new Secret("fU7fRb+g6YdlniuSqviOLWNkda1M/MuPtH6zNI9inF8=")},     
+                    
+                    RedirectUris = { "" },
+                    PostLogoutRedirectUris = { "" },
+                
+                    RequireClientSecret = false,
+                
+                    AllowedGrantTypes = {
+                        GrantType.ResourceOwnerPassword,
+                        GrantType.AuthorizationCode
+                    },
+                    RequirePkce = true,
+                    AllowedScopes = { "openid", "profile", "email", "bankingapi" },
+                
+                    AllowOfflineAccess = true,
+                    RefreshTokenUsage = TokenUsage.ReUse
                 },
 
                 // MVC client using hybrid flow

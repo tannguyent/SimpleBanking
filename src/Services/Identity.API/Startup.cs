@@ -166,7 +166,8 @@ namespace IdentityAPI
 
                 var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
                 //context.Database.Migrate();
-                if (!context.Clients.Any(c=>c.ClientId == "client"))
+                
+                if (context.Clients.Count() < 2)
                 {
                     foreach (var client in Config.GetClients())
                     {
