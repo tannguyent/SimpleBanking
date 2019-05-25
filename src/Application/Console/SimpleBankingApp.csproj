@@ -20,13 +20,12 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
+    <PackageReference Include="Xer.Cqrs.CommandStack" Version="2.0.0" />
+    <PackageReference Include="Xer.Cqrs.EventStack" Version="2.0.0" />
+    <PackageReference Include="Xer.Cqrs.Extensions.Microsoft.DependencyInjection" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="app-settings.json" CopyToOutputDirectory="Always" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Account\Handlers\" />
   </ItemGroup>
 </Project>

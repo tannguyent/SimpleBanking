@@ -1,9 +1,14 @@
-using System.IO;
+﻿using System.IO;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SimpleBankingApp.Models;
-using SimpleBankingApp.Services;
+using SimpleBankingApp.Print.Events;
+using SimpleBankingApp.Print.Handlers;
+using Xer.Cqrs.CommandStack;
+using Xer.Cqrs.EventStack;
+using Xer.Delegator.Registration;
 
 namespace SimpleBankingApp
 {
@@ -19,7 +24,9 @@ namespace SimpleBankingApp
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             // run app
-            serviceProvider.GetService<App>().Run();
+            var app = serviceProvider.GetService<App>();
+            app.Run().Wait();
+
         }
 
         private static void ConfigureServices(IServiceCollection serviceCollection)
@@ -28,7 +35,7 @@ namespace SimpleBankingApp
             serviceCollection.AddSingleton(new LoggerFactory()
                 .AddConsole()
                 .AddDebug());
-            serviceCollection.AddLogging(); 
+            serviceCollection.AddLogging();
 
             // build configuration
             var configuration = new ConfigurationBuilder()
@@ -40,11 +47,10 @@ namespace SimpleBankingApp
             serviceCollection.Configure<AppSettings>(configuration.GetSection("Configuration"));
             ConfigureConsole(configuration);
 
-            // add services
-            serviceCollection.AddTransient<ITestService, TestService>();
-
             // add app
             serviceCollection.AddTransient<App>();
+
+            serviceCollection.AddCqrs(typeof(ShowHomeScreenEventHandler).Assembly);
         }
 
         private static void ConfigureConsole(IConfigurationRoot configuration)
