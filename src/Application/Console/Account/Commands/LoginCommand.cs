@@ -1,4 +1,6 @@
-﻿namespace SimpleBankingApp.Account.Commands
+﻿using SimpleBankingApp.Models;
+
+namespace SimpleBankingApp.Account.Commands
 {
     public class LoginCommand
     {

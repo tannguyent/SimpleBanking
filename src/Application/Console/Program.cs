@@ -1,14 +1,10 @@
 ﻿using System.IO;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SimpleBankingApp.Account.Services;
 using SimpleBankingApp.Models;
-using SimpleBankingApp.Print.Events;
 using SimpleBankingApp.Print.Handlers;
-using Xer.Cqrs.CommandStack;
-using Xer.Cqrs.EventStack;
-using Xer.Delegator.Registration;
 
 namespace SimpleBankingApp
 {
@@ -32,10 +28,8 @@ namespace SimpleBankingApp
         private static void ConfigureServices(IServiceCollection serviceCollection)
         {
             // add logging
-            serviceCollection.AddSingleton(new LoggerFactory()
-                .AddConsole()
-                .AddDebug());
-            serviceCollection.AddLogging();
+            serviceCollection.AddLogging(configure => configure.AddConsole())
+                             .Configure<LoggerFilterOptions>(options => options.MinLevel = LogLevel.Information);
 
             // build configuration
             var configuration = new ConfigurationBuilder()
@@ -55,6 +49,9 @@ namespace SimpleBankingApp
 
             // add cqrs
             serviceCollection.AddCqrs(typeof(ShowHomeScreenEventHandler).Assembly);
+
+            // add service 
+            serviceCollection.AddHttpClient<IAccountService, AccountService>();
         }
 
         private static void ConfigureConsole(IConfigurationRoot configuration)

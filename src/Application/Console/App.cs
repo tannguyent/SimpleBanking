@@ -17,16 +17,19 @@ namespace SimpleBankingApp
         private readonly ILogger<App> _logger;
         private readonly EventDelegator _eventDelegator;
         private readonly CommandDelegator _commandDelegator;
+        private readonly IServiceProvider _serviceProvider;
         private readonly ApplicationSettings _config;
 
         public App(IOptions<ApplicationSettings> config,
                    ILogger<App> logger,
                    EventDelegator eventDelegator,
-                   CommandDelegator commandDelegator)
+                   CommandDelegator commandDelegator,
+                   IServiceProvider serviceProvider)
         {
             _logger = logger;
             _eventDelegator = eventDelegator;
             _commandDelegator = commandDelegator;
+            _serviceProvider = serviceProvider;
             _config = config.Value;
         }
 
@@ -48,7 +51,8 @@ namespace SimpleBankingApp
                             await _eventDelegator.SendAsync(new ShowLoginScreenEvent());
                             break;
                         case ActionEnum.Logout:
-                            await _commandDelegator.SendAsync(new LogoutCommand());
+                            var ApplicationContext = _serviceProvider.GetService(typeof(ApplicationContext)) as ApplicationContext;
+                            await _commandDelegator.SendAsync(new LogoutCommand(ApplicationContext.UserInfo.AccessToken));
                             break;
                         case ActionEnum.CreateDeposit:
                             await _eventDelegator.SendAsync(new ShowRecordDepositScreenEvent());

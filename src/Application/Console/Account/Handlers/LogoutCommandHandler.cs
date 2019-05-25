@@ -10,20 +10,23 @@ using Xer.Cqrs.EventStack;
 
 namespace SimpleBankingApp.Account.Handlers
 {
-    public class CreateAccountCommandHandler : ICommandAsyncHandler<CreateAccountCommand>
+    public class LogoutCommandHandler : ICommandAsyncHandler<LogoutCommand>
     {
-        private readonly ILogger<CreateAccountCommandHandler> _logger;
+        private readonly ILogger<LogoutCommandHandler> _logger;
         private readonly IAccountService _accountService;
         private readonly EventDelegator _eventDelegator;
+        private readonly ApplicationContext _applicationContext;
 
-        public CreateAccountCommandHandler(
-            ILogger<CreateAccountCommandHandler> logger,
+        public LogoutCommandHandler(
+            ILogger<LogoutCommandHandler> logger,
             IAccountService accountService,
-            EventDelegator eventDelegator)
+            EventDelegator eventDelegator,
+            ApplicationContext applicationContext)
         {
             _logger = logger;
             _accountService = accountService;
             _eventDelegator = eventDelegator;
+            _applicationContext = applicationContext;
         }
         /// <summary>
         /// 
@@ -31,14 +34,13 @@ namespace SimpleBankingApp.Account.Handlers
         /// <param name="command"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task HandleAsync(CreateAccountCommand command, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task HandleAsync(LogoutCommand command, CancellationToken cancellationToken = default(CancellationToken))
         {
-            _logger.LogInformation("START CREATE ACCOUNT ....");
-            var response = await _accountService.CreateAccountAsync(command, cancellationToken);
+            _logger.LogInformation("START LOGOUT ACCOUNT ....");
+            var response = await _accountService.LogoutAsync(command, cancellationToken);
 
-            _logger.LogInformation("START CREATE BANKING ....");
+            _logger.LogInformation("LOGOUT SUCCESS");
 
-            _logger.LogInformation("START CREATE BANKING SUCCESS");
             await _eventDelegator.SendAsync(new ShowHomeScreenEvent());
         }
     }

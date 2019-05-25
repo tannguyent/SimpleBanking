@@ -1,4 +1,6 @@
 ﻿
+using SimpleBankingApp.Models;
+
 namespace SimpleBankingApp.Account.Commands
 {
     public class CreateAccountCommand
