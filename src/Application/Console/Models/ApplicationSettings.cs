@@ -1,6 +1,6 @@
 namespace SimpleBankingApp.Models
 {
-    public class AppSettings
+    public class ApplicationSettings
     {
         /// <summary>
         /// Sets header title in console window

@@ -3,12 +3,9 @@ namespace SimpleBankingApp.Print.Events
 {
     public class ShowHomeScreenEvent
     {
-        public ShowHomeScreenEvent(bool isLogin = false)
+        public ShowHomeScreenEvent()
         {
-            IsLogin = isLogin;
         }
-
-        public bool IsLogin { get; }
     }
 }
 

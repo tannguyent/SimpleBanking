@@ -17,9 +17,9 @@ namespace SimpleBankingApp
         private readonly ILogger<App> _logger;
         private readonly EventDelegator _eventDelegator;
         private readonly CommandDelegator _commandDelegator;
-        private readonly AppSettings _config;
+        private readonly ApplicationSettings _config;
 
-        public App(IOptions<AppSettings> config,
+        public App(IOptions<ApplicationSettings> config,
                    ILogger<App> logger,
                    EventDelegator eventDelegator,
                    CommandDelegator commandDelegator)

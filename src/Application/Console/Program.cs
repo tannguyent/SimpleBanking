@@ -44,12 +44,16 @@ namespace SimpleBankingApp
                 .Build();
 
             serviceCollection.AddOptions();
-            serviceCollection.Configure<AppSettings>(configuration.GetSection("Configuration"));
+            serviceCollection.Configure<ApplicationSettings>(configuration.GetSection("Configuration"));
             ConfigureConsole(configuration);
+
+            // add context
+            serviceCollection.AddSingleton<ApplicationContext>();
 
             // add app
             serviceCollection.AddTransient<App>();
 
+            // add cqrs
             serviceCollection.AddCqrs(typeof(ShowHomeScreenEventHandler).Assembly);
         }
 

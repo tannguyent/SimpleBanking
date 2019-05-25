@@ -1,4 +1,5 @@
-﻿using SimpleBankingApp.Print.Events;
+﻿using SimpleBankingApp.Models;
+using SimpleBankingApp.Print.Events;
 using System;
 using Xer.Cqrs.EventStack;
 
@@ -6,11 +7,18 @@ namespace SimpleBankingApp.Print.Handlers
 {
     public class ShowHomeScreenEventHandler : IEventHandler<ShowHomeScreenEvent>
     {
+        private readonly ApplicationContext appContext;
+
+        public ShowHomeScreenEventHandler(ApplicationContext appContext)
+        {
+            this.appContext = appContext;
+        }
+
         public void Handle(ShowHomeScreenEvent @event)
         {
             Console.Clear();
 
-            if (@event.IsLogin)
+            if (appContext.UserInfo.IsLogin)
             {
                 Console.WriteLine("3. Record a Deposit");
                 Console.WriteLine("4. Record a Withdrawl");
