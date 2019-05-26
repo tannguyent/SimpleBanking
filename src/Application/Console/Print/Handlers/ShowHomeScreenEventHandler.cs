@@ -20,6 +20,8 @@ namespace SimpleBankingApp.Print.Handlers
 
             if (appContext.UserInfo.IsLogin)
             {
+                Console.WriteLine($"UserId:{appContext.UserInfo.UserId}");
+                Console.WriteLine($"AccountId:{appContext.UserInfo.DebitAccountId}");
                 Console.WriteLine("3. Record a Deposit");
                 Console.WriteLine("4. Record a Withdrawl");
                 Console.WriteLine("5. Check Balance");

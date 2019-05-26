@@ -36,7 +36,7 @@ namespace Banking.API.Migrations
 
                     b.Property<DateTime>("UpdatedDate");
 
-                    b.Property<int>("UserId");
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
 

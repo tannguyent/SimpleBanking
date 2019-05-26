@@ -8,10 +8,16 @@ namespace SimpleBankingApp.Print.Handlers
     {
         public void Handle(ShowListTransactionEvent @event)
         {
+            Console.Clear();
+
+            Console.WriteLine("{transaction.Id}-{transaction.Status}-{transaction.Amount}-{transaction.CreatedDate}-{transaction.UpdatedDate}");
+
             foreach (var transaction in @event.Transactions)
             {
                 Console.WriteLine($"{transaction.Id}-{transaction.Status}-{transaction.Amount}-{transaction.CreatedDate}-{transaction.UpdatedDate}");
             }
+
+            Console.ReadLine();
         }
     }
 }

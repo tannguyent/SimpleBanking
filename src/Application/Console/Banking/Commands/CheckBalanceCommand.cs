@@ -1,10 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SimpleBankingApp.Banking.Commands
 {
     public class CheckBalanceCommand
     {
+        public CheckBalanceCommand(Guid debitAccountId)
+        {
+            DebitAccountId = debitAccountId;
+        }
+
+        public Guid DebitAccountId { get; }
     }
 }

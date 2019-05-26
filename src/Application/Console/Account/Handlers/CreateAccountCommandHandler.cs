@@ -1,12 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using SimpleBankingApp.Account.Commands;
-using SimpleBankingApp.Account.Services;
-using SimpleBankingApp.Models;
-using SimpleBankingApp.Print.Events;
+using SimpleBankingApp.Services;
 using System.Threading;
 using System.Threading.Tasks;
 using Xer.Cqrs.CommandStack;
-using Xer.Cqrs.EventStack;
 
 namespace SimpleBankingApp.Account.Handlers
 {
@@ -14,16 +11,19 @@ namespace SimpleBankingApp.Account.Handlers
     {
         private readonly ILogger<CreateAccountCommandHandler> _logger;
         private readonly IAccountService _accountService;
-        private readonly EventDelegator _eventDelegator;
+        private readonly IBankingService _bankingService;
+        private readonly CommandDelegator _commandDelegator;
 
         public CreateAccountCommandHandler(
             ILogger<CreateAccountCommandHandler> logger,
             IAccountService accountService,
-            EventDelegator eventDelegator)
+            IBankingService bankingService,
+            CommandDelegator commandDelegator)
         {
             _logger = logger;
             _accountService = accountService;
-            _eventDelegator = eventDelegator;
+            _bankingService = bankingService;
+            _commandDelegator = commandDelegator;
         }
         /// <summary>
         /// 
@@ -34,11 +34,9 @@ namespace SimpleBankingApp.Account.Handlers
         public async Task HandleAsync(CreateAccountCommand command, CancellationToken cancellationToken = default(CancellationToken))
         {
             _logger.LogInformation("START CREATE ACCOUNT ....");
-            await _accountService.CreateAccountAsync(command, cancellationToken);
+            var userId = await _accountService.CreateAccountAsync(command, cancellationToken);
 
-            _logger.LogInformation("START CREATE BANKING ....");
-
-            _logger.LogInformation("START CREATE BANKING SUCCESS");
+            _logger.LogInformation("CREATE ACCOUNT SUCCESS");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using SimpleBankingApp.Banking.Models;
+﻿using SimpleBankingApp.Models;
 using System.Collections.Generic;
 
 namespace SimpleBankingApp.Print.Events

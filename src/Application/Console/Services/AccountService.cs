@@ -10,7 +10,7 @@ using SimpleBankingApp.Account.Commands;
 using SimpleBankingApp.Exceptions;
 using SimpleBankingApp.Models;
 
-namespace SimpleBankingApp.Account.Services
+namespace SimpleBankingApp.Services
 {
     public class AccountService : IAccountService
     {
@@ -28,12 +28,15 @@ namespace SimpleBankingApp.Account.Services
             _httpClient.BaseAddress = new Uri(_applicationSettings.Identity.IdentityServer);
         }
 
-        public async Task CreateAccountAsync(CreateAccountCommand command, CancellationToken token = default(CancellationToken))
+        public async Task<Guid> CreateAccountAsync(CreateAccountCommand command, CancellationToken token = default(CancellationToken))
         {
             var content = new StringContent(JsonConvert.SerializeObject(command), Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync("/Users", content, token);
             if (response.StatusCode != System.Net.HttpStatusCode.OK && response.StatusCode != System.Net.HttpStatusCode.Created)
                 throw new AccountCreateNewException(await response.Content.ReadAsStringAsync());
+            var userInfoUrl = response.Headers.Location;
+            var userId = userInfoUrl.Segments[2];
+            return Guid.Parse(userId);
 
         }
 

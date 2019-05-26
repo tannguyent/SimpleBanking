@@ -16,7 +16,7 @@ namespace Banking.API.Migrations
                     CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
                     CurrentBalance = table.Column<decimal>(nullable: false),
                     Type = table.Column<int>(nullable: false)
                 },

@@ -18,18 +18,21 @@ namespace SimpleBankingApp
         private readonly EventDelegator _eventDelegator;
         private readonly CommandDelegator _commandDelegator;
         private readonly IServiceProvider _serviceProvider;
+        private readonly ApplicationContext _applicationContext;
         private readonly ApplicationSettings _config;
 
         public App(IOptions<ApplicationSettings> config,
                    ILogger<App> logger,
                    EventDelegator eventDelegator,
                    CommandDelegator commandDelegator,
-                   IServiceProvider serviceProvider)
+                   IServiceProvider serviceProvider,
+                   ApplicationContext applicationContext)
         {
             _logger = logger;
             _eventDelegator = eventDelegator;
             _commandDelegator = commandDelegator;
             _serviceProvider = serviceProvider;
+            _applicationContext = applicationContext;
             _config = config.Value;
         }
 
@@ -63,7 +66,7 @@ namespace SimpleBankingApp
                                 await _eventDelegator.SendAsync(new ShowRecordWithDrawScreenEvent());
                                 break;
                             case ActionEnum.CheckBalance:
-                                await _commandDelegator.SendAsync(new CheckBalanceCommand());
+                                await _commandDelegator.SendAsync(new CheckBalanceCommand(_applicationContext.UserInfo.DebitAccountId));
                                 break;
                             case ActionEnum.ListTransactions:
                                 await _commandDelegator.SendAsync(new ListTransactionsCommand());

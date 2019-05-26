@@ -1,8 +1,10 @@
-﻿namespace Banking.API.Infrastructure.Service.Models
+﻿using System;
+
+namespace Banking.API.Infrastructure.Service.Models
 {
     public class BankingAccountModel: BaseModel
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
         public decimal CurrentBalance { get; set; }
     }

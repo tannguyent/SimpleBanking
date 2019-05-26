@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using SimpleBankingApp.Account.Commands;
-using SimpleBankingApp.Account.Services;
 using SimpleBankingApp.Models;
-using SimpleBankingApp.Print.Events;
+using SimpleBankingApp.Services;
 using System.Threading;
 using System.Threading.Tasks;
 using Xer.Cqrs.CommandStack;

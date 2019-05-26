@@ -25,6 +25,7 @@ namespace Banking.API.Infrastructure.Core
         public async Task<T> CreateAsync(T entity, CancellationToken cancellationToken = default(CancellationToken))
         {
             var newEntity = await _dbContext.Set<T>().AddAsync(entity, cancellationToken);
+            await _dbContext.SaveChangesAsync();
             return newEntity.Entity;
         }
 
@@ -41,6 +42,7 @@ namespace Banking.API.Infrastructure.Core
                 throw new Exception("Can not found Id:" + id);
 
             _dbContext.Set<T>().Remove(entity);
+            await _dbContext.SaveChangesAsync();
         }
 
         /// <summary>
@@ -80,6 +82,7 @@ namespace Banking.API.Infrastructure.Core
 
             _dbContext.Set<T>().Attach(entity);
             _dbContext.Set<T>().Update(entity);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

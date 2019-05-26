@@ -1,14 +1,16 @@
 ﻿using Microsoft.Extensions.Options;
-using SimpleBankingApp.Banking.Models;
+using Newtonsoft.Json;
+using SimpleBankingApp.Models;
 using SimpleBankingApp.Models;
 using SimpleBankingApp.Ultis;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SimpleBankingApp.Bank.Services
+namespace SimpleBankingApp.Services
 {
     public class BankingService : IBankingService
     {
@@ -31,6 +33,28 @@ namespace SimpleBankingApp.Bank.Services
             var response = await HttpClientWithAuthorization.GetAsync("/api/transactions", cancellationToken);
             response.EnsureSuccessStatusCode();
             return await response.DeserilizeResponseAsync<List<TransactionModel>>();
+        }
+
+        public async Task<BankingAccountModel> CreateDebitAccountAsync(Guid userId, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(new CreateAccountRequestModel(userId)), Encoding.UTF8, "application/json");
+            var response = await HttpClientWithAuthorization.PostAsync("/api/debitaccounts", content, cancellationToken);
+            response.EnsureSuccessStatusCode();
+            return await response.DeserilizeResponseAsync<BankingAccountModel>();
+        }
+
+        public async Task<BankingAccountModel> GetDebitAccountAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var response = await HttpClientWithAuthorization.GetAsync("/api/debitaccounts/" + id, cancellationToken);
+            response.EnsureSuccessStatusCode();
+            return await response.DeserilizeResponseAsync<BankingAccountModel>();
+        }
+
+        public async Task<BankingAccountModel> GetDebitAccountByUserIdAsync(Guid userId, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var response = await HttpClientWithAuthorization.GetAsync("/api/debitaccounts/accountid/" + userId, cancellationToken);
+            response.EnsureSuccessStatusCode();
+            return await response.DeserilizeResponseAsync<BankingAccountModel>();
         }
 
         private HttpClient HttpClientWithAuthorization

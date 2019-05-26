@@ -1,8 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Banking.API.Infrastructure.Service
 {
@@ -11,6 +7,8 @@ namespace Banking.API.Infrastructure.Service
         public static void AddServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<ITransactionService, TransactionService>();
+            serviceCollection.AddScoped<IDebitBankingAccountService, DebitBankingAccountService>();
+            serviceCollection.AddScoped<ICreditBankingAccountService, CreditBankingAccountService>();
         }
     }
 }

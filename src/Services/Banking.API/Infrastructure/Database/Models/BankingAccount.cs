@@ -6,7 +6,7 @@ namespace Banking.API.Infrastructure.Database.Models
 {
     public abstract class BankingAccount : AuditableEntity
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
         public decimal CurrentBalance { get; set; }
 

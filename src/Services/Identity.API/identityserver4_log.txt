@@ -83,3 +83,95 @@
 2019-05-26 15:53:19.678 +07:00 [DBG] Found ["bankingapi"] API scopes in database
 2019-05-26 15:53:19.681 +07:00 [DBG] Found [] identity scopes in database
 2019-05-26 15:53:19.685 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-26 21:54:01.863 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-26 22:37:40.132 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-26 23:01:57.396 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-26 23:01:57.673 +07:00 [DBG] bankingapiclient found in database: true
+2019-05-26 23:01:57.674 +07:00 [DBG] client configuration validation for client bankingapiclient succeeded.
+2019-05-26 23:01:57.681 +07:00 [DBG] Found [] identity scopes in database
+2019-05-26 23:01:57.688 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-26 23:01:57.693 +07:00 [DBG] Found [] identity scopes in database
+2019-05-26 23:01:57.700 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-26 23:05:50.398 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-26 23:13:21.964 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-26 23:13:22.262 +07:00 [DBG] bankingapiclient found in database: true
+2019-05-26 23:13:22.263 +07:00 [DBG] client configuration validation for client bankingapiclient succeeded.
+2019-05-26 23:13:22.267 +07:00 [DBG] Found [] identity scopes in database
+2019-05-26 23:13:22.272 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-26 23:13:22.276 +07:00 [DBG] Found [] identity scopes in database
+2019-05-26 23:13:22.281 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-26 23:45:17.504 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-26 23:45:17.769 +07:00 [DBG] bankingapiclient found in database: true
+2019-05-26 23:45:17.770 +07:00 [DBG] client configuration validation for client bankingapiclient succeeded.
+2019-05-26 23:45:17.776 +07:00 [DBG] Found [] identity scopes in database
+2019-05-26 23:45:17.783 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-26 23:45:17.786 +07:00 [DBG] Found [] identity scopes in database
+2019-05-26 23:45:17.792 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-26 23:46:10.231 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-26 23:46:10.466 +07:00 [DBG] bankingapiclient found in database: true
+2019-05-26 23:46:10.467 +07:00 [DBG] client configuration validation for client bankingapiclient succeeded.
+2019-05-26 23:46:10.471 +07:00 [DBG] Found [] identity scopes in database
+2019-05-26 23:46:10.476 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-26 23:46:10.479 +07:00 [DBG] Found [] identity scopes in database
+2019-05-26 23:46:10.484 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-26 23:46:14.553 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-26 23:59:01.827 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-26 23:59:02.070 +07:00 [DBG] bankingapiclient found in database: true
+2019-05-26 23:59:02.071 +07:00 [DBG] client configuration validation for client bankingapiclient succeeded.
+2019-05-26 23:59:02.075 +07:00 [DBG] Found [] identity scopes in database
+2019-05-26 23:59:02.081 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-26 23:59:02.085 +07:00 [DBG] Found [] identity scopes in database
+2019-05-26 23:59:02.092 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-26 23:59:06.332 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-26 23:59:56.624 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-26 23:59:56.883 +07:00 [DBG] bankingapiclient found in database: true
+2019-05-26 23:59:56.883 +07:00 [DBG] client configuration validation for client bankingapiclient succeeded.
+2019-05-26 23:59:56.887 +07:00 [DBG] Found [] identity scopes in database
+2019-05-26 23:59:56.893 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-26 23:59:56.899 +07:00 [DBG] Found [] identity scopes in database
+2019-05-26 23:59:56.904 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-27 00:02:01.121 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-27 00:02:01.376 +07:00 [DBG] bankingapiclient found in database: true
+2019-05-27 00:02:01.377 +07:00 [DBG] client configuration validation for client bankingapiclient succeeded.
+2019-05-27 00:02:01.382 +07:00 [DBG] Found [] identity scopes in database
+2019-05-27 00:02:01.388 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-27 00:02:01.392 +07:00 [DBG] Found [] identity scopes in database
+2019-05-27 00:02:01.397 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-27 00:02:26.360 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-27 00:13:38.497 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-27 00:13:38.739 +07:00 [DBG] bankingapiclient found in database: true
+2019-05-27 00:13:38.741 +07:00 [DBG] client configuration validation for client bankingapiclient succeeded.
+2019-05-27 00:13:38.745 +07:00 [DBG] Found [] identity scopes in database
+2019-05-27 00:13:38.751 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-27 00:13:38.754 +07:00 [DBG] Found [] identity scopes in database
+2019-05-27 00:13:38.758 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-27 00:15:11.821 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-27 00:15:12.062 +07:00 [DBG] bankingapiclient found in database: true
+2019-05-27 00:15:12.062 +07:00 [DBG] client configuration validation for client bankingapiclient succeeded.
+2019-05-27 00:15:12.065 +07:00 [DBG] Found [] identity scopes in database
+2019-05-27 00:15:12.070 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-27 00:15:12.073 +07:00 [DBG] Found [] identity scopes in database
+2019-05-27 00:15:12.078 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-27 00:18:43.733 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-27 00:18:43.977 +07:00 [DBG] bankingapiclient found in database: true
+2019-05-27 00:18:43.978 +07:00 [DBG] client configuration validation for client bankingapiclient succeeded.
+2019-05-27 00:18:43.982 +07:00 [DBG] Found [] identity scopes in database
+2019-05-27 00:18:43.988 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-27 00:18:43.992 +07:00 [DBG] Found [] identity scopes in database
+2019-05-27 00:18:43.999 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-27 00:19:03.101 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-27 00:19:03.111 +07:00 [DBG] bankingapiclient found in database: true
+2019-05-27 00:19:03.112 +07:00 [DBG] client configuration validation for client bankingapiclient succeeded.
+2019-05-27 00:19:03.116 +07:00 [DBG] Found [] identity scopes in database
+2019-05-27 00:19:03.120 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-27 00:19:03.124 +07:00 [DBG] Found [] identity scopes in database
+2019-05-27 00:19:03.130 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-27 00:21:50.809 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-27 00:21:51.051 +07:00 [DBG] bankingapiclient found in database: true
+2019-05-27 00:21:51.052 +07:00 [DBG] client configuration validation for client bankingapiclient succeeded.
+2019-05-27 00:21:51.055 +07:00 [DBG] Found [] identity scopes in database
+2019-05-27 00:21:51.062 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-27 00:21:51.065 +07:00 [DBG] Found [] identity scopes in database
+2019-05-27 00:21:51.070 +07:00 [DBG] Found ["bankingapi"] API scopes in database
+2019-05-27 00:22:14.184 +07:00 [DBG] Found ["openid","profile","admin_ui_profile","admin_ui_public","admin_api","admin_ui_webhooks","bankingapi"] as all scopes in database
+2019-05-27 00:22:14.221 +07:00 [DBG] http://localhost:5000/resources found in database: false
