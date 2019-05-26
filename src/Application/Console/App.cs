@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SimpleBankingApp.Account.Commands;
-using SimpleBankingApp.Bank.Commands;
+using SimpleBankingApp.Banking.Commands;
 using SimpleBankingApp.Constants;
 using SimpleBankingApp.Models;
 using SimpleBankingApp.Print.Events;

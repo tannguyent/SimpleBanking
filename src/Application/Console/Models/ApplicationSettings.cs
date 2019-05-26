@@ -11,6 +11,11 @@ namespace SimpleBankingApp.Models
         /// 
         /// </summary>
         public Identity Identity { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public BankingApi BankingApi { get; set; }
     }
 
     public class Configuration
@@ -26,5 +31,10 @@ namespace SimpleBankingApp.Models
         public string IdentityServer { get; set; }
         public string ClientId { get; set; }
         public string Scope { get; set; }
+    }
+
+    public class BankingApi
+    {
+        public string ServerUrl { get; set; }
     }
 }

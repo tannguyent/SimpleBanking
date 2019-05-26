@@ -6,5 +6,8 @@
     "IdentityServer": "http://localhost:5000",
     "ClientId": "bankingapiclient",
     "Scope": "bankingapi"
+  },
+  "BankingApi": {
+    "ServerUrl": "http://localhost:5000"
   }
 }
