@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SimpleBankingApp.Banking.Commands
 {
-    public class ListTransactionHistoryCommand
+    public class ListTransactionsCommand
     {
     }
 }

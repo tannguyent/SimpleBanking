@@ -66,7 +66,7 @@ namespace SimpleBankingApp
                                 await _commandDelegator.SendAsync(new CheckBalanceCommand());
                                 break;
                             case ActionEnum.ListTransactions:
-                                await _commandDelegator.SendAsync(new ListTransactionHistoryCommand());
+                                await _commandDelegator.SendAsync(new ListTransactionsCommand());
                                 break;
                             case ActionEnum.Close:
                                 return;

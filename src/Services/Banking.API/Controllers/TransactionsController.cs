@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Banking.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TransactionsController : ControllerBase

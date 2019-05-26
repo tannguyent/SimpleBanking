@@ -7,6 +7,7 @@ using Banking.API.ErrorHandling;
 using Banking.API.Infrastructure.Database;
 using Banking.API.Infrastructure.Database.Context;
 using Banking.API.Infrastructure.Service;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -41,8 +42,8 @@ namespace Banking.API
             services.AddDbContext<BankingDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("BankingDatabase")));
 
-            services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", options =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
                     options.Authority = "http://localhost:5000";
                     options.RequireHttpsMetadata = false;

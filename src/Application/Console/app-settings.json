@@ -8,6 +8,6 @@
     "Scope": "bankingapi"
   },
   "BankingApi": {
-    "ServerUrl": "http://localhost:5000"
+    "ServerUrl": "https://localhost:5001"
   }
 }
