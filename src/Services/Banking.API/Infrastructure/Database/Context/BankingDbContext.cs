@@ -14,7 +14,6 @@ namespace Banking.API.Infrastructure.Database.Context
         {
         }
 
-        public DbSet<BankingAccount> BankingAccounts { get; set; }
         public DbSet<DebitBankingAccount> DebitBankingAccounts { get; set; }
         public DbSet<CreditBankingAccount> CreaditBankingAccounts { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
@@ -22,13 +21,11 @@ namespace Banking.API.Infrastructure.Database.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
+            builder.Entity<BankingAccount>()
+                        .HasDiscriminator(c=>c.Type)
+                        .HasValue<DebitBankingAccount>(BankingAccountType.Debit)
+                        .HasValue<CreditBankingAccount>(BankingAccountType.Credit);
 
-            builder.Entity<DebitBankingAccount>()
-                   .HasBaseType<BankingAccount>();
-
-            builder.Entity<CreditBankingAccount>()
-                   .HasBaseType<BankingAccount>();
         }
     }
 }
