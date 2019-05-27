@@ -25,7 +25,8 @@ namespace SimpleBankingApp.Print.Handlers
         {
             Console.Clear();
 
-            Console.WriteLine("1. Input Amount");
+            Console.WriteLine("Create a WITHDRAW transaction");
+            Console.Write("PLEASE INPUT AMOUNT:");
             var amountString = Console.ReadLine();
             decimal.TryParse(amountString, out decimal amount);
             if (amount < 0) throw new InputAmountInvalidException(amount);
