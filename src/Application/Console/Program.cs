@@ -29,7 +29,7 @@ namespace SimpleBankingApp
         {
             // add logging
             serviceCollection.AddLogging(configure => configure.AddConsole())
-                             .Configure<LoggerFilterOptions>(options => options.MinLevel = LogLevel.Information);
+                             .Configure<LoggerFilterOptions>(options => options.MinLevel = LogLevel.Critical);
 
             // build configuration
             var configuration = new ConfigurationBuilder()

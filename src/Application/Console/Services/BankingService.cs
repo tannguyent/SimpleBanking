@@ -31,8 +31,7 @@ namespace SimpleBankingApp.Services
         public async Task<List<TransactionModel>> GetTransactionsAsync(Guid accountId, CancellationToken cancellationToken = default(CancellationToken))
         {
             var response = await HttpClientWithAuthorization.GetAsync($"/api/transactions?accountId={accountId}", cancellationToken);
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                throw new Exception(await response.Content.ReadAsStringAsync());
+            await response.EnsureSuccessStatusCodeAsync();
             return await response.DeserilizeResponseAsync<List<TransactionModel>>();
         }
 
@@ -40,24 +39,21 @@ namespace SimpleBankingApp.Services
         {
             var content = new StringContent(JsonConvert.SerializeObject(new CreateAccountRequestModel(userId)), Encoding.UTF8, "application/json");
             var response = await HttpClientWithAuthorization.PostAsync("/api/accounts", content, cancellationToken);
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                throw new Exception(await response.Content.ReadAsStringAsync());
+            await response.EnsureSuccessStatusCodeAsync();
             return await response.DeserilizeResponseAsync<BankingAccountModel>();
         }
 
         public async Task<BankingAccountModel> GetBankingAccountAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
         {
             var response = await HttpClientWithAuthorization.GetAsync("/api/accounts/" + id, cancellationToken);
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                throw new QueryBankingAccountException(await response.Content.ReadAsStringAsync());
+            await response.EnsureSuccessStatusCodeAsync();
             return await response.DeserilizeResponseAsync<BankingAccountModel>();
         }
 
         public async Task<BankingAccountModel> GetBankingAccountByUserIdAsync(Guid userId, CancellationToken cancellationToken = default(CancellationToken))
         {
             var response = await HttpClientWithAuthorization.GetAsync("/api/accounts/user/" + userId, cancellationToken);
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                throw new QueryBankingAccountException(await response.Content.ReadAsStringAsync());
+            await response.EnsureSuccessStatusCodeAsync();
 
             return await response.DeserilizeResponseAsync<BankingAccountModel>();
         }
@@ -66,16 +62,14 @@ namespace SimpleBankingApp.Services
         {
             var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
             var response = await HttpClientWithAuthorization.PostAsync("/api/transactions/deposit", content, cancellationToken);
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                throw new CreateTransactionException(await response.Content.ReadAsStringAsync());
+            await response.EnsureSuccessStatusCodeAsync();
         }
 
         public async Task RecordWithdrawTransactionAsync(RequestCreateTransactionModel request, CancellationToken cancellationToken = default(CancellationToken))
         {
             var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
             var response = await HttpClientWithAuthorization.PostAsync("/api/transactions/withdraw", content, cancellationToken);
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                throw new CreateTransactionException(await response.Content.ReadAsStringAsync());
+            await response.EnsureSuccessStatusCodeAsync();
         }
 
         private HttpClient HttpClientWithAuthorization

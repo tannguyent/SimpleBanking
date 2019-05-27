@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using SimpleBankingApp.Account.Commands;
 using SimpleBankingApp.Exceptions;
 using SimpleBankingApp.Models;
+using SimpleBankingApp.Ultis;
 
 namespace SimpleBankingApp.Services
 {
@@ -32,8 +33,7 @@ namespace SimpleBankingApp.Services
         {
             var content = new StringContent(JsonConvert.SerializeObject(command), Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync("/Users", content, token);
-            if (response.StatusCode != System.Net.HttpStatusCode.OK && response.StatusCode != System.Net.HttpStatusCode.Created)
-                throw new AccountCreateNewException(await response.Content.ReadAsStringAsync());
+            await response.EnsureSuccessStatusCodeAsync();
             var userInfoUrl = response.Headers.Location;
             var userId = userInfoUrl.Segments[2];
             return Guid.Parse(userId);
@@ -64,8 +64,7 @@ namespace SimpleBankingApp.Services
         {
             var disco = await GetDiscoveryIdentityServerAsync(token);
             var logoutResponse = await _httpClient.GetAsync($"{disco.EndSessionEndpoint}?id_token_hint={command.AccessToken}", token);
-            if (logoutResponse.StatusCode != System.Net.HttpStatusCode.OK)
-                throw new AccountLogoutException(await logoutResponse.Content.ReadAsStringAsync());
+            await logoutResponse.EnsureSuccessStatusCodeAsync();
         }
 
         /// <summary>

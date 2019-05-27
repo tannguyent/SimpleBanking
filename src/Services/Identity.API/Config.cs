@@ -53,14 +53,15 @@ namespace IdentityAPI
                 
                     AllowedGrantTypes = {
                         GrantType.ResourceOwnerPassword,
-                        GrantType.AuthorizationCode,
-                        GrantType.ClientCredentials 
+                        GrantType.ClientCredentials,
+                        GrantType.Implicit
                     },
                     RequirePkce = true,
                     AllowedScopes = { "openid", "profile", "email", "bankingapi" },
                 
                     AllowOfflineAccess = true,
-                    RefreshTokenUsage = TokenUsage.ReUse
+                    RefreshTokenUsage = TokenUsage.ReUse,
+                    AllowAccessTokensViaBrowser = true
                 },
 
                 // MVC client using hybrid flow

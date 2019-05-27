@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SimpleBankingApp.Exceptions;
 using System.IO;
 using System.Net.Http;
 using System.Threading;
@@ -17,6 +18,12 @@ namespace SimpleBankingApp.Ultis
             {
                 return serializer.Deserialize<T>(jsonTextReader);
             }
+        }
+
+        public static async Task EnsureSuccessStatusCodeAsync(this HttpResponseMessage httpResponseMessage)
+        {
+            if (!httpResponseMessage.IsSuccessStatusCode)
+                throw new HttpResponseNotSuccessException(await httpResponseMessage.Content.ReadAsStringAsync());
         }
     }
 }

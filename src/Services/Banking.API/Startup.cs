@@ -7,7 +7,9 @@ using Banking.API.ErrorHandling;
 using Banking.API.Infrastructure.Database;
 using Banking.API.Infrastructure.Database.Context;
 using Banking.API.Infrastructure.Service;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -18,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace Banking.API
@@ -46,12 +49,13 @@ namespace Banking.API
                 }
                 ));
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
                 {
                     options.Authority = "http://localhost:5000";
                     options.RequireHttpsMetadata = false;
-                    options.Audience = "bankingapi";
+                    options.ApiName = "bankingapi";
+                    options.ApiSecret = "fU7fRb+g6YdlniuSqviOLWNkda1M/MuPtH6zNI9inF8=";
                 });
 
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -76,7 +80,11 @@ namespace Banking.API
                     }
                 });
 
-                c.AddSecurityDefinition("Bearer", new OAuth2Scheme());
+                c.AddSecurityDefinition("Bearer", new OAuth2Scheme(){
+                    Flow = "implicit", // just get token via browser (suitable for swagger SPA)
+                    AuthorizationUrl = "http://localhost:5000/connect/authorize",
+                    Scopes = new Dictionary<string, string> {{"bankingapi", "Banking API "}}
+                });
             });
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -113,7 +121,8 @@ namespace Banking.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 c.OAuthConfigObject = new OAuthConfigObject() {
-                    ClientId=""
+                    ClientId="bankingapiclient",
+                    ClientSecret="fU7fRb+g6YdlniuSqviOLWNkda1M/MuPtH6zNI9inF8=",
                 };
             });
 
