@@ -24,7 +24,7 @@ namespace SimpleBankingApp.Banking.Handlers
 
         public async Task HandleAsync(CheckBalanceCommand command, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var debitAccountInfo = await this.bankingService.GetDebitAccountAsync(command.DebitAccountId, cancellationToken);
+            var debitAccountInfo = await this.bankingService.GetBankingAccountAsync(command.DebitAccountId, cancellationToken);
             await eventDelegator.SendAsync(new ShowAccountDetailEvent(debitAccountInfo), cancellationToken);
         }
     }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Banking.API.Infrastructure.Core
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork
     {
 
         /// <summary>

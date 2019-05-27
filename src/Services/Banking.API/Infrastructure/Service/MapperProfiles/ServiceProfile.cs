@@ -9,9 +9,6 @@ namespace Banking.API.Infrastructure.Service.MapperProfiles
         public ServiceProfile()
         {
             CreateMap<BankingAccount, BankingAccountModel>();
-            CreateMap<CreditBankingAccount, BankingAccountModel>();
-            CreateMap<DebitBankingAccount, BankingAccountModel>();
-
             CreateMap<Transaction, TransactionModel>()
                 .ForMember(c=>c.Status, opt => opt.MapFrom(c=>(int)c.Status));
 

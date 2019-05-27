@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Banking.API.Infrastructure.Service;
@@ -13,27 +12,34 @@ namespace Banking.API.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class CreditAccountController : ControllerBase
+    public class AccountsController : ControllerBase
     {
-        private readonly ICreditBankingAccountService _bankingAccountService;
+        private readonly IAccountService _accountService;
 
-        public CreditAccountController(ICreditBankingAccountService bankingAccountService)
+        public AccountsController(IAccountService accountService)
         {
-            _bankingAccountService = bankingAccountService;
+            _accountService = accountService;
+        }
+
+        [HttpGet()]
+        [Route("user/{userId}")]
+        public Task<BankingAccountModel> GetByUserId(Guid userId, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return _accountService.GetByUserIdAsync(userId, cancellationToken);
         }
 
         // GET api/creaditbankings/5
         [HttpGet("{id}")]
         public Task<BankingAccountModel> Get(Guid id, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return _bankingAccountService.GetByAccountIdAsync(id, cancellationToken);
+            return _accountService.GetAsync(id, cancellationToken);
         }
 
         // POST api/creaditbankings
         [HttpPost]
         public Task<BankingAccountModel> Post(RequestCreateAccountModel accountModel, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return _bankingAccountService.CreateAsync(accountModel, cancellationToken);
+            return _accountService.CreateAsync(accountModel, cancellationToken);
         }
     }
 }

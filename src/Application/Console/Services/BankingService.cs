@@ -38,21 +38,21 @@ namespace SimpleBankingApp.Services
         public async Task<BankingAccountModel> CreateDebitAccountAsync(Guid userId, CancellationToken cancellationToken = default(CancellationToken))
         {
             var content = new StringContent(JsonConvert.SerializeObject(new CreateAccountRequestModel(userId)), Encoding.UTF8, "application/json");
-            var response = await HttpClientWithAuthorization.PostAsync("/api/debitaccounts", content, cancellationToken);
+            var response = await HttpClientWithAuthorization.PostAsync("/api/accounts", content, cancellationToken);
             response.EnsureSuccessStatusCode();
             return await response.DeserilizeResponseAsync<BankingAccountModel>();
         }
 
-        public async Task<BankingAccountModel> GetDebitAccountAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<BankingAccountModel> GetBankingAccountAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var response = await HttpClientWithAuthorization.GetAsync("/api/debitaccounts/" + id, cancellationToken);
+            var response = await HttpClientWithAuthorization.GetAsync("/api/accounts/" + id, cancellationToken);
             response.EnsureSuccessStatusCode();
             return await response.DeserilizeResponseAsync<BankingAccountModel>();
         }
 
-        public async Task<BankingAccountModel> GetDebitAccountByUserIdAsync(Guid userId, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<BankingAccountModel> GetBankingAccountByUserIdAsync(Guid userId, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var response = await HttpClientWithAuthorization.GetAsync("/api/debitaccounts/accountid/" + userId, cancellationToken);
+            var response = await HttpClientWithAuthorization.GetAsync("/api/accounts/user/" + userId, cancellationToken);
             response.EnsureSuccessStatusCode();
             return await response.DeserilizeResponseAsync<BankingAccountModel>();
         }

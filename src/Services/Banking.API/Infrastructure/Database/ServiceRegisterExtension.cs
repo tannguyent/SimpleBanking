@@ -1,4 +1,5 @@
-﻿using Banking.API.Infrastructure.Database.Repositories;
+﻿using Banking.API.Infrastructure.Core;
+using Banking.API.Infrastructure.Database.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Banking.API.Infrastructure.Database
@@ -9,8 +10,8 @@ namespace Banking.API.Infrastructure.Database
         {
             serviceCollection.AddScoped<ITransactionRepository, TransactionRepository>();
             serviceCollection.AddScoped<ITransactionHistoriesRepository, TransactionHistoriesRepository>();
-            serviceCollection.AddScoped<IDebitBankingAccountRepository, DebitBankingAccountRepository>();
-            serviceCollection.AddScoped<ICreditBankingAccountRepository, CreditBankingAccountRepository>();
+            serviceCollection.AddScoped<IAccountRepository, AccountRepository>();
+            serviceCollection.AddScoped<IUnitOfWork, BankingUnitOfWork>();
         }
     }
 }

@@ -26,5 +26,17 @@ namespace Banking.API.Controllers
         {
             return transactionService.GetTransactionsAsync(bankingAccountId, cancellationToken);
         }
+
+        [HttpPost("deposit")]
+        public Task<TransactionModel> Deposit(RequestCreateTransactionModel model, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPost("withdraw")]
+        public Task<TransactionModel> WithDraw(RequestCreateTransactionModel model, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            throw new NotImplementedException();
+        }
     }
 }

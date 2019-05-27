@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Banking.API.Infrastructure.Core.Exceptions;
 using Banking.API.Infrastructure.Database.Models;
 using Banking.API.Infrastructure.Database.Repositories;
 using Banking.API.Infrastructure.Service.Models;
+using Banking.API.Infrastructure.Service.TransactionProcessing;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,16 +16,25 @@ namespace Banking.API.Infrastructure.Service
     public interface ITransactionService
     {
         Task<List<TransactionModel>> GetTransactionsAsync(Guid bankingAccountId, CancellationToken cancellationToken = default(CancellationToken));
+        Task<TransactionModel> RecordDepositTransactionAsync(Guid bankingAccountId, decimal amount, CancellationToken cancellationToken = default(CancellationToken));
+        Task<TransactionModel> RecordWithdrawTransactionAsync(Guid bankingAccountId, decimal amount, CancellationToken cancellationToken = default(CancellationToken));
     }
 
     public class TransactionService : ITransactionService
     {
         private readonly ITransactionRepository transactionRepository;
+        private readonly IAccountRepository accountRepository;
+        private readonly ITransactionManager transactionManager;
         private readonly IMapper mapper;
 
-        public TransactionService(ITransactionRepository transactionRepository, IMapper mapper)
+        public TransactionService(ITransactionRepository transactionRepository, 
+            IAccountRepository accountRepository,
+            ITransactionManager transactionManager,
+            IMapper mapper)
         {
             this.transactionRepository = transactionRepository;
+            this.accountRepository = accountRepository;
+            this.transactionManager = transactionManager;
             this.mapper = mapper;
         }
 
@@ -32,118 +43,33 @@ namespace Banking.API.Infrastructure.Service
             var data = transactionRepository.GetAll().Where(c => c.BankingAccountId == bankingAccountId).AsNoTracking();
             return mapper.ProjectTo<TransactionModel>(data).ToListAsync(cancellationToken);
         }
-    }
 
-    public interface ITransaction
-    {
-        Guid Id { get; set; }
-        DateTime CreatedOn { get; set; } 
-        TransactionStatus Status { get; set; }
-
-        Task ExecuteAsync(CancellationToken cancellation = default(CancellationToken));
-        Task Undo(CancellationToken cancellation = default(CancellationToken));
-    }
-
-    public abstract class BaseTransaction: ITransaction
-    {
-        public Guid Id { get; set; } = Guid.NewGuid();
-        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
-        public TransactionStatus Status { get; set; } = TransactionStatus.Create;
-
-        public abstract Task ExecuteAsync(CancellationToken cancellation = default(CancellationToken));
-        public abstract Task Undo(CancellationToken cancellation = default(CancellationToken));
-    }
-
-    public class Deposit : BaseTransaction
-    {
-        private readonly BankingAccount _account;
-        private readonly decimal _amount;
-
-        public Deposit(BankingAccount account, decimal amount)
+        public async Task<TransactionModel> RecordDepositTransactionAsync(Guid bankingAccountId, decimal amount, CancellationToken cancellationToken = default(CancellationToken))
         {
-            _account = account;
-            _amount = amount;
+            var account = await accountRepository.GetByIdAsync(bankingAccountId, cancellationToken);
+            if (account == null)
+                throw new AccountNotFoundException(bankingAccountId);
+
+            var depositTransaction = new DepositTransaction(account, amount);
+            transactionManager.AddTransaction(depositTransaction);
+
+            await transactionManager.ProcessTransactionsAsync();
+
+            throw new NotImplementedException();
         }
 
-        public override Task ExecuteAsync(CancellationToken cancellation = default(CancellationToken))
+        public async Task<TransactionModel> RecordWithdrawTransactionAsync(Guid bankingAccountId, decimal amount, CancellationToken cancellationToken = default(CancellationToken))
         {
-            _account.CurrentBalance += _amount;
-            return Task.CompletedTask;
-        }
+            var account = await accountRepository.GetByIdAsync(bankingAccountId, cancellationToken);
+            if (account == null)
+                throw new AccountNotFoundException(bankingAccountId);
 
-        public override Task Undo(CancellationToken cancellation = default(CancellationToken))
-        {
-            _account.CurrentBalance -= _amount;
-            return Task.CompletedTask;
-        }
-    }
+            var withDrawTransaction = new WithdrawTransaction(account, amount);
+            transactionManager.AddTransaction(withDrawTransaction);
 
-    public class Withdraw : BaseTransaction
-    {
-        private readonly BankingAccount _account;
-        private readonly decimal _amount;
+            await transactionManager.ProcessTransactionsAsync();
 
-        public Withdraw(BankingAccount account, decimal amount)
-        {
-            _account = account;
-            _amount = amount;
-        }
-
-        public override Task ExecuteAsync(CancellationToken cancellation = default(CancellationToken))
-        {
-            _account.CurrentBalance -= _amount;
-            return Task.CompletedTask;
-        }
-
-        public override Task Undo(CancellationToken cancellation = default(CancellationToken))
-        {
-            _account.CurrentBalance += _amount;
-            return Task.CompletedTask;
-        }
-    }
-
-    public class RecordTransaction : BaseTransaction
-    {
-        private readonly BankingAccount _account;
-        private readonly decimal _amount;
-
-        public RecordTransaction(BankingAccount account, decimal amount)
-        {
-            _account = account;
-            _amount = amount;
-        }
-
-        public override Task ExecuteAsync(CancellationToken cancellation = default(CancellationToken))
-        {
-            return Task.CompletedTask;
-        }
-
-        public override Task Undo(CancellationToken cancellation = default(CancellationToken))
-        {
-            return Task.CompletedTask;
-        }
-    }
-
-    public interface ITransactionManager
-    {
-        Task ProcessTransactionsAsync(CancellationToken cancellation = default(CancellationToken));
-    }
-
-    public class TransactionManager: ITransactionManager
-    {
-        private readonly List<ITransaction> _transactions = new List<ITransaction>();
-
-        public void AddTransaction(ITransaction transaction)
-        {
-            _transactions.Add(transaction);
-        }
-
-        public async Task ProcessTransactionsAsync(CancellationToken cancellation = default(CancellationToken))
-        {
-            foreach (var trans in _transactions)
-            {
-                await trans.ExecuteAsync(cancellation);
-            }
+            throw new NotImplementedException();
         }
     }
 }

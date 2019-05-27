@@ -1,64 +1,48 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Banking.API.Infrastructure.Core
 {
-    /// <summary>
-    /// The Entity Framework implementation of IUnitOfWork
-    /// </summary>
-    public sealed class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
-        /// <summary>
-        /// The DbContext
-        /// </summary>
-        private DbContext _dbContext;
+        private readonly DbContext _dbContext;
+        private readonly Dictionary<Type, object> _repositories = new Dictionary<Type, object>();
 
-        /// <summary>
-        /// Initializes a new instance of the UnitOfWork class.
-        /// </summary>
-        /// <param name="context">The object context</param>
-        public UnitOfWork(DbContext context)
+        public Dictionary<Type, object> Repositories
         {
-            _dbContext = context;
+            get { return _repositories; }
+            set { Repositories = value; }
         }
 
+        public UnitOfWork(DbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
+        public IGenericRepository<T> Repository<T>() where T : class, IEntity
+        {
+            if (Repositories.Keys.Contains(typeof(T)))
+            {
+                return Repositories[typeof(T)] as IGenericRepository<T>;
+            }
 
-        /// <summary>
-        /// Saves all pending changes
-        /// </summary>
-        /// <returns>The number of objects in an Added, Modified, or Deleted state</returns>
+            IGenericRepository<T> repo = new GenericRepository<T>(_dbContext);
+            Repositories.Add(typeof(T), repo);
+            return repo;
+        }
+
         public Task<int> CommitAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            // Save changes with the default options
             return _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        /// <summary>
-        /// Disposes the current object
-        /// </summary>
-        public void Dispose()
+        public void Rollback()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Disposes all external resources.
-        /// </summary>
-        /// <param name="disposing">The dispose indicator.</param>
-        private void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_dbContext != null)
-                {
-                    _dbContext.Dispose();
-                    _dbContext = null;
-                }
-            }
+            _dbContext.ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
         }
     }
 }

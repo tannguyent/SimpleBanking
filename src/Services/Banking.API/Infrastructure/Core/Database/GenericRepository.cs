@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Banking.API.Infrastructure.Core
 {
-    public abstract class GenericRepository<T> : IGenericRepository<T>
+    public class GenericRepository<T> : IGenericRepository<T>
       where T : class, IEntity
     {
         protected DbContext _dbContext;

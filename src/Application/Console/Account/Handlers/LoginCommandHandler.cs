@@ -53,7 +53,7 @@ namespace SimpleBankingApp.Account.Handlers
             _applicationContext.UserInfo.UserId = accountId;
 
             // get banking account
-            var DebitAccountModel = await _bankingService.GetDebitAccountByUserIdAsync(accountId, cancellationToken);
+            var DebitAccountModel = await _bankingService.GetBankingAccountByUserIdAsync(accountId, cancellationToken);
             if (DebitAccountModel == null)
             {
                 DebitAccountModel = await _bankingService.CreateDebitAccountAsync(accountId, cancellationToken);

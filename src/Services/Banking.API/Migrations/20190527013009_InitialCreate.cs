@@ -8,7 +8,7 @@ namespace Banking.API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "BankingAccount",
+                name: "Accounts",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -17,12 +17,11 @@ namespace Banking.API.Migrations
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
                     UserId = table.Column<Guid>(nullable: false),
-                    CurrentBalance = table.Column<decimal>(nullable: false),
-                    Type = table.Column<int>(nullable: false)
+                    CurrentBalance = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BankingAccount", x => x.Id);
+                    table.PrimaryKey("PK_Accounts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,9 +41,9 @@ namespace Banking.API.Migrations
                 {
                     table.PrimaryKey("PK_Transactions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Transactions_BankingAccount_BankingAccountId",
+                        name: "FK_Transactions_Accounts_BankingAccountId",
                         column: x => x.BankingAccountId,
-                        principalTable: "BankingAccount",
+                        principalTable: "Accounts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -94,7 +93,7 @@ namespace Banking.API.Migrations
                 name: "Transactions");
 
             migrationBuilder.DropTable(
-                name: "BankingAccount");
+                name: "Accounts");
         }
     }
 }
