@@ -37,7 +37,7 @@ namespace Banking.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("BankingAccounts");
                 });
 
             modelBuilder.Entity("Banking.API.Infrastructure.Database.Models.Transaction", b =>

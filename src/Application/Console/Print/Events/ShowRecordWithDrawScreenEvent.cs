@@ -1,6 +1,6 @@
 ﻿namespace SimpleBankingApp.Print.Events
 {
-    public class ShowRecordWithDrawScreenEvent
+    public class ShowRecordWithdrawScreenEvent
     {
     }
 }

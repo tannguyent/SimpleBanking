@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Banking.API.Migrations
 {
     [DbContext(typeof(BankingDbContext))]
-    [Migration("20190527013009_InitialCreate")]
+    [Migration("20190527151412_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,7 +39,7 @@ namespace Banking.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("BankingAccounts");
                 });
 
             modelBuilder.Entity("Banking.API.Infrastructure.Database.Models.Transaction", b =>

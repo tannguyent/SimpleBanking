@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace Banking.API
 {
@@ -40,7 +41,10 @@ namespace Banking.API
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<BankingDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("BankingDatabase")));
+                options.UseSqlite(Configuration.GetConnectionString("BankingDatabase"), 
+                op=> {
+                }
+                ));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -71,6 +75,8 @@ namespace Banking.API
                         Url = ""
                     }
                 });
+
+                c.AddSecurityDefinition("Bearer", new OAuth2Scheme());
             });
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -106,6 +112,9 @@ namespace Banking.API
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.OAuthConfigObject = new OAuthConfigObject() {
+                    ClientId=""
+                };
             });
 
             app.UseAuthentication();

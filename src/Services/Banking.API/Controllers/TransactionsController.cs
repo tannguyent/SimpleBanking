@@ -22,21 +22,21 @@ namespace Banking.API.Controllers
         }
 
         [HttpGet]
-        public Task<List<TransactionModel>> Get(Guid bankingAccountId,CancellationToken cancellationToken = default(CancellationToken))
+        public Task<List<TransactionModel>> Get(Guid accountId,CancellationToken cancellationToken = default(CancellationToken))
         {
-            return transactionService.GetTransactionsAsync(bankingAccountId, cancellationToken);
+            return transactionService.GetTransactionsAsync(accountId, cancellationToken);
         }
 
         [HttpPost("deposit")]
-        public Task<TransactionModel> Deposit(RequestCreateTransactionModel model, CancellationToken cancellationToken = default(CancellationToken))
+        public Task Deposit(RequestCreateTransactionModel model, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            return  transactionService.RecordDepositTransactionAsync(model.BankingAccountId, model.Amount, cancellationToken);
         }
 
         [HttpPost("withdraw")]
-        public Task<TransactionModel> WithDraw(RequestCreateTransactionModel model, CancellationToken cancellationToken = default(CancellationToken))
+        public Task WithDraw(RequestCreateTransactionModel model, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            return transactionService.RecordWithdrawTransactionAsync(model.BankingAccountId, model.Amount, cancellationToken);
         }
     }
 }

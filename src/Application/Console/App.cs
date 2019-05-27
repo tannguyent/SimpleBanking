@@ -63,13 +63,13 @@ namespace SimpleBankingApp
                                 await _eventDelegator.SendAsync(new ShowRecordDepositScreenEvent());
                                 break;
                             case ActionEnum.CreateWithDraw:
-                                await _eventDelegator.SendAsync(new ShowRecordWithDrawScreenEvent());
+                                await _eventDelegator.SendAsync(new ShowRecordWithdrawScreenEvent());
                                 break;
                             case ActionEnum.CheckBalance:
                                 await _commandDelegator.SendAsync(new CheckBalanceCommand(_applicationContext.UserInfo.DebitAccountId));
                                 break;
                             case ActionEnum.ListTransactions:
-                                await _commandDelegator.SendAsync(new ListTransactionsCommand());
+                                await _commandDelegator.SendAsync(new ListTransactionsCommand(_applicationContext.UserInfo.DebitAccountId));
                                 break;
                             case ActionEnum.Close:
                                 return;

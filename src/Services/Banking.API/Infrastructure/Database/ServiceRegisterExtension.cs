@@ -10,7 +10,7 @@ namespace Banking.API.Infrastructure.Database
         {
             serviceCollection.AddScoped<ITransactionRepository, TransactionRepository>();
             serviceCollection.AddScoped<ITransactionHistoriesRepository, TransactionHistoriesRepository>();
-            serviceCollection.AddScoped<IAccountRepository, AccountRepository>();
+            serviceCollection.AddScoped<IBankingAccountRepository, BankingAccountRepository>();
             serviceCollection.AddScoped<IUnitOfWork, BankingUnitOfWork>();
         }
     }

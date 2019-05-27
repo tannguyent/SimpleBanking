@@ -2,9 +2,9 @@
 
 namespace SimpleBankingApp.Banking.Commands
 {
-    public class RecordDepositCommand
+    public class RecordWithdrawCommand
     {
-        public RecordDepositCommand(Guid debitAccountId, decimal amount)
+        public RecordWithdrawCommand(Guid debitAccountId, decimal amount)
         {
             DebitAccountId = debitAccountId;
             Amount = amount;

@@ -21,11 +21,11 @@ namespace Banking.API.Infrastructure.Service
 
     public class AccountService : IAccountService
     {
-        private readonly IAccountRepository accountRepository;
+        private readonly IBankingAccountRepository accountRepository;
         private readonly IMapper mapper;
 
         public AccountService(
-            IAccountRepository accountRepository,
+            IBankingAccountRepository accountRepository,
             IMapper mapper)
         {
             this.accountRepository = accountRepository;

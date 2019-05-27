@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SimpleBankingApp.Models;
-using SimpleBankingApp.Models;
 using SimpleBankingApp.Ultis;
 using System;
 using System.Collections.Generic;
@@ -28,9 +27,9 @@ namespace SimpleBankingApp.Services
             _httpClient.BaseAddress = new Uri(_applicationSettings.BankingApi.ServerUrl);
         }
 
-        public async Task<List<TransactionModel>> GetTransactionsAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<List<TransactionModel>> GetTransactionsAsync(Guid accountId, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var response = await HttpClientWithAuthorization.GetAsync("/api/transactions", cancellationToken);
+            var response = await HttpClientWithAuthorization.GetAsync($"/api/transactions?accountId={accountId}", cancellationToken);
             response.EnsureSuccessStatusCode();
             return await response.DeserilizeResponseAsync<List<TransactionModel>>();
         }
@@ -55,6 +54,20 @@ namespace SimpleBankingApp.Services
             var response = await HttpClientWithAuthorization.GetAsync("/api/accounts/user/" + userId, cancellationToken);
             response.EnsureSuccessStatusCode();
             return await response.DeserilizeResponseAsync<BankingAccountModel>();
+        }
+
+        public async Task RecordDepositTransactionAsync(RequestCreateTransactionModel request, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
+            var response = await HttpClientWithAuthorization.PostAsync("/api/transactions/deposit", content, cancellationToken);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task RecordWithdrawTransactionAsync(RequestCreateTransactionModel request, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
+            var response = await HttpClientWithAuthorization.PostAsync("/api/transactions/withdraw", content, cancellationToken);
+            response.EnsureSuccessStatusCode();
         }
 
         private HttpClient HttpClientWithAuthorization

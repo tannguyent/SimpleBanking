@@ -43,14 +43,18 @@ namespace IdentityAPI
                     ClientName = "banking api client",
                     ClientSecrets = {new Secret("fU7fRb+g6YdlniuSqviOLWNkda1M/MuPtH6zNI9inF8=")},     
                     
-                    RedirectUris = { "" },
-                    PostLogoutRedirectUris = { "" },
+                    RedirectUris = { 
+                        "https://localhost:44313/swagger/oauth2-redirect.html",
+                        "https://localhost:5001/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { 
+                    },
                 
                     RequireClientSecret = false,
                 
                     AllowedGrantTypes = {
                         GrantType.ResourceOwnerPassword,
-                        GrantType.AuthorizationCode
+                        GrantType.AuthorizationCode,
+                        GrantType.ClientCredentials 
                     },
                     RequirePkce = true,
                     AllowedScopes = { "openid", "profile", "email", "bankingapi" },

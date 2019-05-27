@@ -10,11 +10,12 @@ namespace SimpleBankingApp.Print.Handlers
         {
             Console.Clear();
 
-            Console.WriteLine("{transaction.Id}-{transaction.Status}-{transaction.Amount}-{transaction.CreatedDate}-{transaction.UpdatedDate}");
-
             foreach (var transaction in @event.Transactions)
             {
-                Console.WriteLine($"{transaction.Id}-{transaction.Status}-{transaction.Amount}-{transaction.CreatedDate}-{transaction.UpdatedDate}");
+                Console.WriteLine($"TransactionId:                  {transaction.Id}");
+                Console.WriteLine($"    transaction Status:         {transaction.Status}");
+                Console.WriteLine($"    transaction Amount:         {transaction.Amount}");
+                Console.WriteLine($"    transaction CreatedDate:    {transaction.CreatedDate}");
             }
 
             Console.ReadLine();

@@ -17,7 +17,6 @@ namespace SimpleBankingApp.Print.Handlers
         public void Handle(ShowHomeScreenEvent @event)
         {
             Console.Clear();
-
             if (appContext.UserInfo.IsLogin)
             {
                 Console.WriteLine($"UserId:{appContext.UserInfo.UserId}");
@@ -35,7 +34,8 @@ namespace SimpleBankingApp.Print.Handlers
                 Console.WriteLine("2. Login");
                 Console.WriteLine("8. Close");
             }
-            
+
+            Console.Write("PLEASE ENTER A NUMBER:");
         }
     }
 }

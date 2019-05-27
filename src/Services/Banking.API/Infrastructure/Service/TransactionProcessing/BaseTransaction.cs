@@ -9,6 +9,6 @@ namespace Banking.API.Infrastructure.Service.TransactionProcessing
         public Guid Id { get; set; } = Guid.NewGuid();
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
-        public abstract Task ExecuteAsync(CancellationToken cancellation = default(CancellationToken));
+        public abstract Task ExecuteAsync(TransactionManager context, CancellationToken cancellation = default(CancellationToken));
     }
 }

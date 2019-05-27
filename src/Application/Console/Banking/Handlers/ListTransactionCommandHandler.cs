@@ -9,7 +9,7 @@ using Xer.Cqrs.EventStack;
 
 namespace SimpleBankingApp.Banking.Handlers
 {
-    class ListTransactionCommandHandler : ICommandAsyncHandler<ListTransactionsCommand>
+    public class ListTransactionCommandHandler : ICommandAsyncHandler<ListTransactionsCommand>
     {
         private readonly IBankingService bankingService;
         private readonly EventDelegator eventDelegator;
@@ -22,7 +22,7 @@ namespace SimpleBankingApp.Banking.Handlers
         public async Task HandleAsync(ListTransactionsCommand command, CancellationToken cancellationToken = default(CancellationToken))
         {
             // get data
-            var data = await bankingService.GetTransactionsAsync(cancellationToken);
+            var data = await bankingService.GetTransactionsAsync(command.AccountId, cancellationToken);
 
             // sent event to print 
             await eventDelegator.SendAsync(new ShowListTransactionEvent(data), cancellationToken);

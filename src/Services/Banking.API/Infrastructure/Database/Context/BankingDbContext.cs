@@ -10,7 +10,7 @@ namespace Banking.API.Infrastructure.Database.Context
         {
         }
 
-        public DbSet<BankingAccount> Accounts { get; set; }
+        public DbSet<BankingAccount> BankingAccounts { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionHistory> TransactionHistories { get; set; }
 

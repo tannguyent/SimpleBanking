@@ -16,19 +16,19 @@ namespace Banking.API.Infrastructure.Service
     public interface ITransactionService
     {
         Task<List<TransactionModel>> GetTransactionsAsync(Guid bankingAccountId, CancellationToken cancellationToken = default(CancellationToken));
-        Task<TransactionModel> RecordDepositTransactionAsync(Guid bankingAccountId, decimal amount, CancellationToken cancellationToken = default(CancellationToken));
-        Task<TransactionModel> RecordWithdrawTransactionAsync(Guid bankingAccountId, decimal amount, CancellationToken cancellationToken = default(CancellationToken));
+        Task RecordDepositTransactionAsync(Guid bankingAccountId, decimal amount, CancellationToken cancellationToken = default(CancellationToken));
+        Task RecordWithdrawTransactionAsync(Guid bankingAccountId, decimal amount, CancellationToken cancellationToken = default(CancellationToken));
     }
 
     public class TransactionService : ITransactionService
     {
         private readonly ITransactionRepository transactionRepository;
-        private readonly IAccountRepository accountRepository;
+        private readonly IBankingAccountRepository accountRepository;
         private readonly ITransactionManager transactionManager;
         private readonly IMapper mapper;
 
         public TransactionService(ITransactionRepository transactionRepository, 
-            IAccountRepository accountRepository,
+            IBankingAccountRepository accountRepository,
             ITransactionManager transactionManager,
             IMapper mapper)
         {
@@ -44,7 +44,7 @@ namespace Banking.API.Infrastructure.Service
             return mapper.ProjectTo<TransactionModel>(data).ToListAsync(cancellationToken);
         }
 
-        public async Task<TransactionModel> RecordDepositTransactionAsync(Guid bankingAccountId, decimal amount, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task RecordDepositTransactionAsync(Guid bankingAccountId, decimal amount, CancellationToken cancellationToken = default(CancellationToken))
         {
             var account = await accountRepository.GetByIdAsync(bankingAccountId, cancellationToken);
             if (account == null)
@@ -54,11 +54,9 @@ namespace Banking.API.Infrastructure.Service
             transactionManager.AddTransaction(depositTransaction);
 
             await transactionManager.ProcessTransactionsAsync();
-
-            throw new NotImplementedException();
         }
 
-        public async Task<TransactionModel> RecordWithdrawTransactionAsync(Guid bankingAccountId, decimal amount, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task RecordWithdrawTransactionAsync(Guid bankingAccountId, decimal amount, CancellationToken cancellationToken = default(CancellationToken))
         {
             var account = await accountRepository.GetByIdAsync(bankingAccountId, cancellationToken);
             if (account == null)
@@ -68,8 +66,6 @@ namespace Banking.API.Infrastructure.Service
             transactionManager.AddTransaction(withDrawTransaction);
 
             await transactionManager.ProcessTransactionsAsync();
-
-            throw new NotImplementedException();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Banking.API.Infrastructure.Database.Models;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,10 +16,16 @@ namespace Banking.API.Infrastructure.Service.TransactionProcessing
             _amount = amount;
         }
 
-        public override Task ExecuteAsync(CancellationToken cancellation = default(CancellationToken))
+        public override async Task ExecuteAsync(TransactionManager context, CancellationToken cancellation = default(CancellationToken))
         {
             _account.CurrentBalance += _amount;
-            return Task.CompletedTask;
+            await context.AccountRepository.UpdateAsync(_account.Id, _account, cancellation);
+            await context.TransactionRepository.CreateAsync(new Transaction()
+            {
+                Amount = _amount,
+                BankingAccountId = _account.Id,
+                CreatedDate = DateTime.UtcNow,
+            }, cancellation);
         }
     }
 }

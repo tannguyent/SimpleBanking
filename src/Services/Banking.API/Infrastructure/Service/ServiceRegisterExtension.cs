@@ -8,8 +8,8 @@ namespace Banking.API.Infrastructure.Service
         public static void AddServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<ITransactionService, TransactionService>();
-            serviceCollection.AddScoped<ITransactionManager, TransactionManager>();
             serviceCollection.AddScoped<IAccountService, AccountService>();
+            serviceCollection.AddScoped<ITransactionManager, TransactionManager>();
         }
     }
 }
