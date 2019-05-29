@@ -1,10 +1,10 @@
 <template>
   <div v-if="oidcIsAuthenticated">
-    Signed in as {{ oidcUser.email }}
-    <button @click="signOutOidc">Sign out</button>
+    Signed in as {{ oidcUser.name }}
+    <el-button @click="signOutOidc">Sign out</el-button>
   </div>
   <div v-else>
-    <button @click="authenticateOidc">Sign In</button>
+    <el-button @click="authenticateOidc">Sign In</el-button>
   </div>
 </template>
 

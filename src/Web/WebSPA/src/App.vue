@@ -16,7 +16,6 @@
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
 import Header from '@/components/Header'
-
 export default {
   name: 'App',
   components: {
@@ -33,7 +32,6 @@ export default {
   },
   methods: {
     userLoaded: function (e) {
-      console.log('I am listening to the user loaded event in vuex-oidc', e.detail)
       const token = e.detail.id_token
       if (token) {
         Vue.prototype.$http.defaults.headers.common['Authorization'] = token

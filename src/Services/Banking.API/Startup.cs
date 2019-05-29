@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -9,6 +10,7 @@ using Banking.API.Infrastructure.Database.Context;
 using Banking.API.Infrastructure.Service;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,9 +36,20 @@ namespace Banking.API
 
         public IConfiguration Configuration { get; }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                c =>
+                {
+                    c.WithOrigins("http://localhost:5002")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
             services.AddMvcCore()
                     .AddApiExplorer()
                     .AddAuthorization()
@@ -108,6 +121,7 @@ namespace Banking.API
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseCors(MyAllowSpecificOrigins);
 
             // add exception hanlder
             app.ConfigureExceptionHandler();
