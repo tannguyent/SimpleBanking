@@ -21,9 +21,9 @@ const router = new Router({
       }
     },
     {
-      path: '/protected',
-      name: 'protected',
-      component: () => import(/* webpackChunkName: "protected" */ './views/Protected.vue')
+      path: '/transactionHistory',
+      name: 'transactionHistory',
+      component: () => import(/* webpackChunkName: "protected" */ './views/TransactionHistory.vue')
     },
     {
       path: '/oidc-callback', // Needs to match redirect_uri in you oidcSettings

@@ -6,13 +6,14 @@
       id="nav"
     >
       <router-link to="/">Home</router-link> |
-      <router-link to="/protected">Protected</router-link>
+      <router-link to="/transactionHistory">Transaction History</router-link>
     </div>
     <router-view/>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
 import { mapGetters } from 'vuex'
 import Header from '@/components/Header'
 
@@ -23,7 +24,8 @@ export default {
   },
   computed: {
     ...mapGetters('oidcStore', [
-      'oidcIsAuthenticated'
+      'oidcIsAuthenticated',
+      'oidcIdToken'
     ]),
     hasAccess: function () {
       return this.oidcIsAuthenticated || this.$route.meta.isPublic
@@ -32,6 +34,10 @@ export default {
   methods: {
     userLoaded: function (e) {
       console.log('I am listening to the user loaded event in vuex-oidc', e.detail)
+      const token = e.detail.id_token
+      if (token) {
+        Vue.prototype.$http.defaults.headers.common['Authorization'] = token
+      }
     }
   },
   mounted () {

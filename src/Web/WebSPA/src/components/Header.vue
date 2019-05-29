@@ -3,6 +3,9 @@
     Signed in as {{ oidcUser.email }}
     <button @click="signOutOidc">Sign out</button>
   </div>
+  <div v-else>
+    <button @click="authenticateOidc">Sign In</button>
+  </div>
 </template>
 
 <script>
@@ -21,7 +24,8 @@ export default {
   },
   methods: {
     ...mapActions('oidcStore', [
-      'signOutOidc'
+      'signOutOidc',
+      'authenticateOidc'
     ])
   }
 }

@@ -6,6 +6,10 @@ import store from './store'
 // ui library
 import './element-ui'
 
+// import http
+import axiosSetup from './axios'
+axiosSetup()
+
 Vue.config.productionTip = false
 
 new Vue({

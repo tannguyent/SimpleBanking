@@ -2,16 +2,13 @@
   <div
     class="home"
   >
-    <h1>This route is public</h1>
-    <SignedInUser />
+    <h1>THIS IS HOME PAGE </h1>
   </div>
 </template>
 
 <script>
-import SignedInUser from '@/components/SignedInUser'
 
 export default {
-  name: 'Home',
-  components: { SignedInUser }
+  name: 'Home'
 }
 </script>
