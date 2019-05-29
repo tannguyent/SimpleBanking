@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <x-header></x-header>
     <div
       v-if="hasAccess"
       id="nav"
@@ -13,9 +14,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Header from '@/components/Header'
 
 export default {
   name: 'App',
+  components: {
+    XHeader: Header
+  },
   computed: {
     ...mapGetters('oidcStore', [
       'oidcIsAuthenticated'

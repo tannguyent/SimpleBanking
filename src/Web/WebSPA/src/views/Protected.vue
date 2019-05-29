@@ -3,8 +3,7 @@
     v-if="oidcIsAuthenticated"
     class="about"
   >
-    <h1>This route requires authentication</h1>
-    <SignedInUser />
+    <Table></Table>
   </div>
 </template>
 
@@ -13,9 +12,11 @@ import { mapGetters } from 'vuex'
 import jsonMarkup from 'json-markup'
 import SignedInUser from '@/components/SignedInUser'
 
+import Table from '@/components/Table'
+
 export default {
   name: 'Protected',
-  components: { SignedInUser },
+  components: { SignedInUser, Table },
   computed: {
     ...mapGetters('oidcStore', [
       'oidcIsAuthenticated',
