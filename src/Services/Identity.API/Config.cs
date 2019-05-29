@@ -45,7 +45,11 @@ namespace IdentityAPI
                     
                     RedirectUris = { 
                         "https://localhost:44313/swagger/oauth2-redirect.html",
-                        "https://localhost:5001/swagger/oauth2-redirect.html" },
+                        "https://localhost:5001/swagger/oauth2-redirect.html",
+
+                        "http://localhost:5002/silent-renew-oidc.html",
+                        "http://localhost:5002/oidc-callback",
+                 },
                     PostLogoutRedirectUris = { 
                     },
                 

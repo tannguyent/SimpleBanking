@@ -38,8 +38,21 @@ namespace IdentityAPI
             Environment = environment;
         }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                c =>
+                {
+                    c.WithOrigins("http://localhost:5002")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("Users")));
 
@@ -129,6 +142,8 @@ namespace IdentityAPI
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseCors(MyAllowSpecificOrigins);
+            
             app.UseIdentityServer();
 
             app.UseCommunityLogin();
