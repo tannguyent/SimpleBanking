@@ -49,8 +49,10 @@ namespace IdentityAPI
 
                         "http://localhost:5002/silent-renew-oidc.html",
                         "http://localhost:5002/oidc-callback",
+                        "http://localhost:5002"
                  },
                     PostLogoutRedirectUris = { 
+                        "http://localhost:5002"
                     },
                 
                     RequireClientSecret = false,
@@ -62,7 +64,9 @@ namespace IdentityAPI
                     },
                     RequirePkce = true,
                     AllowedScopes = { "openid", "profile", "email", "bankingapi" },
-                
+                    AllowedCorsOrigins = {
+                        "http://localhost:5002"
+                    },
                     AllowOfflineAccess = true,
                     RefreshTokenUsage = TokenUsage.ReUse,
                     AllowAccessTokensViaBrowser = true

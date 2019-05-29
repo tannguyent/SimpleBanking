@@ -77,7 +77,7 @@ namespace IdentityAPI
                 options.Events.RaiseInformationEvents = true;
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
-
+                options.IssuerUri = "http://localhost:5000";
                 options.UserInteraction = new UserInteractionOptions
                 {
                     LogoutUrl = "/Account/Logout",
