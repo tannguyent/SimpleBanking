@@ -10,28 +10,30 @@ because it is building base on microservice so it will have a lot of system as b
 
 # how to run
 please flow some step as below to run application after clone code 
+because i dont create solution project so could you please setup seperate project to run in order as below 
+
 1. Identity Server 
 - url: http://localhost:5000 
 - commands:
-dotnet restore
-dotnet run
+- dotnet restore
+- dotnet run
 
 2. Banking API
 - url: https://localhost:5001 
 - commands:
-dotnet restore
-dotnet run
+- dotnet restore
+- dotnet run
 
 3. Console App 
 - commands:
-dotnet restore
-dotnet run
+- dotnet restore
+- dotnet run
 
 4. WebApp (SPA-VueJS): 
 - url: https://localhost:5002 
 - commands:
-npm i
-npm run sever
+- npm i
+- npm run sever
 
 # some update in the furture
 - Https:
