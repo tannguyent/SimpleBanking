@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 
 // ui library
-import './element-ui'
+import '@/assets/styles/style.scss'
 
 // import http
 import axiosSetup from './axios'
