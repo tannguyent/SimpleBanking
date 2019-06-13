@@ -28,9 +28,14 @@ const webpackConfig = merge(commonConfig, {
                 }
             }),
             new UglifyJSPlugin({
-                cache: true,
+                cache: false,
                 parallel: true,
-                sourceMap: !isProd
+                sourceMap: !isProd,
+                uglifyOptions: {
+                    output: {
+                      comments: false,
+                    }
+                }
             })
         ],
         splitChunks: {
