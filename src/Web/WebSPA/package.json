@@ -9,7 +9,7 @@
     "uselocaldep": "cp ../vuex-oidc/dist/vuex-oidc.esm.js ./node_modules/vuex-oidc/dist/vuex-oidc.esm.js"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "element-ui": "^2.8.2",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.4",
