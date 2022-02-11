@@ -22,7 +22,7 @@
     "@vue/cli-plugin-eslint": "^3.8.0",
     "@vue/cli-service": "^3.8.0",
     "@vue/eslint-config-standard": "^4.0.0",
-    "ajv": "^6.10.0",
+    "ajv": "^6.12.3",
     "core-js": "^2.6.9",
     "eslint": "^5.16.0",
     "eslint-plugin-node": "^8.0.0",
